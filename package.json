@@ -1,0 +1,14 @@
+{
+  "name": "@d3/line-with-tooltip",
+  "main": "b197e99c9606ebd8@331.js",
+  "version": "331.0.0",
+  "homepage": "https://observablehq.com/@d3/line-with-tooltip",
+  "author": {
+    "name": "D3",
+    "url": "https://observablehq.com/@d3"
+  },
+  "type": "module",
+  "peerDependencies": {
+    "@observablehq/runtime": "4"
+  }
+}

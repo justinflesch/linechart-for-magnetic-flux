@@ -3,20 +3,34 @@ import define1 from "./7a9e12f9fb3d8e06@459.js";
 
 export default function define(runtime, observer) {
   const main = runtime.module();
-  const fileAttachments = new Map([["aapl.csv",new URL("./files/de259092d525c13bd10926eaf7add45b15f2771a8b39bc541a5bba1e0206add4880eb1d876be8df469328a85243b7d813a91feb8cc4966de582dc02e5f8609b7",import.meta.url)]]);
+  const fileAttachments = new Map([["aapl.csv",new URL("./VAR3 Full Melt 12-15-2020 1 Hz.csv",import.meta.url)]]);
   main.builtin("FileAttachment", runtime.fileAttachments(name => fileAttachments.get(name)));
   main.variable(observer()).define(["md"], function(md){return(
 md`# Line Chart, Tooltip
 
 This [line chart](/@d3/line-chart) shows the price of Apple stock with a tooltip. Data: [Yahoo Finance](https://finance.yahoo.com/lookup)`
 )});
-  main.variable(observer("chart")).define("chart", ["LineChart","aapl","width"], function(LineChart,aapl,width){return(
+  main.variable(observer("chart1")).define("chart1", ["LineChart","aapl","width"], function(LineChart,aapl,width){return(
 LineChart(aapl, {
-  x: d => d.date,
-  y: d => d.close,
-  yLabel: "↑ Daily close ($)",
+  x: d => d.column_length,
+  y: d => d.Measurements_Voltage,
+  yLabel: "Time (ms)",
   width,
   height: 500,
+  color: "steelblue"
+})
+)});
+  main.variable(observer("focus1")).define("focus1", ["Generators","chart1"], function(Generators,chart1){return(
+Generators.input(chart1)
+)});
+  main.variable(observer("chart2")).define("chart2", ["LineChart","aapl","width"], function(LineChart,aapl,width){return(
+LineChart(aapl, {
+  x: d => d.column_length,
+  y: d => d.Measurements_P01C08t,
+  yLabel: "Time (ms)",
+  width,
+  height: 500,
+  yDomain: [-0.15, 0.32],
   color: "steelblue"
 })
 )});
@@ -26,8 +40,8 @@ FileAttachment("aapl.csv").csv({typed: true})
   main.variable(observer()).define(["md"], function(md){return(
 md`This chart emits *input* events and exposes a value (the focused data); you can listen for these events (*e.g.*, \`chart.addEventListener("input", …)\`) to support interaction such as coordinated views. On Observable, you can even define a reactive value by declaring the chart as a [view](/@observablehq/introduction-to-views) or using Generators.input as below; any cell that references *focus* will now run automatically when the user hovers the chart.`
 )});
-  main.variable(observer("focus")).define("focus", ["Generators","chart"], function(Generators,chart){return(
-Generators.input(chart)
+  main.variable(observer("focus2")).define("focus2", ["Generators","chart2"], function(Generators,chart2){return(
+Generators.input(chart2)
 )});
   main.variable(observer()).define(["howto"], function(howto){return(
 howto("LineChart")

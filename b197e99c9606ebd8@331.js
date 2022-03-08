@@ -6,15 +6,16 @@ export default function define(runtime, observer) {
   const fileAttachments = new Map([["aapl.csv",new URL("./VAR3 Full Melt 12-15-2020 1 Hz.csv",import.meta.url)]]);
   main.builtin("FileAttachment", runtime.fileAttachments(name => fileAttachments.get(name)));
   main.variable(observer()).define(["md"], function(md){return(
-md`# Line Chart, Tooltip
+md`# Magnetic Flux Data
 
-This [line chart](/@d3/line-chart) shows the price of Apple stock with a tooltip. Data: [Yahoo Finance](https://finance.yahoo.com/lookup)`
+This [line chart](/@d3/line-chart) shows magnetic flux data with a tooltip.
+A condensed job voltage:`
 )});
   main.variable(observer("chart1")).define("chart1", ["LineChart","aapl","width"], function(LineChart,aapl,width){return(
 LineChart(aapl, {
   x: d => d.column_length,
   y: d => d.Measurements_Voltage,
-  yLabel: "Time (ms)",
+  xLabel: "Time (ms)",
   width,
   height: 500,
   color: "steelblue"
@@ -23,11 +24,14 @@ LineChart(aapl, {
   main.variable(observer("focus1")).define("focus1", ["Generators","chart1"], function(Generators,chart1){return(
 Generators.input(chart1)
 )});
+  main.variable(observer()).define(["md"], function(md){return(
+md`A random sensor output:`
+)});
   main.variable(observer("chart2")).define("chart2", ["LineChart","aapl","width"], function(LineChart,aapl,width){return(
 LineChart(aapl, {
   x: d => d.column_length,
   y: d => d.Measurements_P01C08t,
-  yLabel: "Time (ms)",
+  xLabel: "Time (ms)",
   width,
   height: 500,
   yDomain: [-0.15, 0.32],

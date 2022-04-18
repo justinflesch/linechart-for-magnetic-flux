@@ -52,6 +52,7 @@ Generators.input(chart2)
   main.variable(observer()).define(["howto"], function(howto){return(
 howto("LineChart")
 )});*/
+
   main.variable(observer("LineChart")).define("LineChart", ["d3"], function(d3){return(
 function LineChart(data, {
   x = ([x]) => x, // given d in data, returns the (temporal) x-value

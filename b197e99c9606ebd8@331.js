@@ -3,7 +3,7 @@ import define1 from "./7a9e12f9fb3d8e06@459.js";
 
 export default function define(runtime, observer) {
   const main = runtime.module();
-  const fileAttachments = new Map([["aapl.csv",new URL("./VAR3 Full Melt 12-15-2020 1 Hz.csv",import.meta.url)]]);
+  const fileAttachments = new Map([["aapl.csv",new URL("./anomalydetection_fixed.csv",import.meta.url)]]);
   main.builtin("FileAttachment", runtime.fileAttachments(name => fileAttachments.get(name)));
   main.variable(observer()).define(["md"], function(md){return(
 md`# Magnetic Flux Data
@@ -13,8 +13,8 @@ A condensed job voltage:`
 )});
   main.variable(observer("chart1")).define("chart1", ["LineChart","aapl","width"], function(LineChart,aapl,width){return(
 LineChart(aapl, {
-  x: d => d.column_length,
-  y: d => d.Measurements_Voltage,
+  x: d => d.time,
+  y: d => d.anomaly_score,
   xLabel: "Time (ms)",
   width,
   height: 500,
@@ -24,13 +24,14 @@ LineChart(aapl, {
   main.variable(observer("focus1")).define("focus1", ["Generators","chart1"], function(Generators,chart1){return(
 Generators.input(chart1)
 )});
+/*
   main.variable(observer()).define(["md"], function(md){return(
 md`A random sensor output:`
 )});
   main.variable(observer("chart2")).define("chart2", ["LineChart","aapl","width"], function(LineChart,aapl,width){return(
 LineChart(aapl, {
-  x: d => d.column_length,
-  y: d => d.Measurements_P01C08t,
+  x: d => d.anomaly_score,
+  y: d => d.time,
   xLabel: "Time (ms)",
   width,
   height: 500,
@@ -38,6 +39,7 @@ LineChart(aapl, {
   color: "steelblue"
 })
 )});
+*/
   main.variable(observer("aapl")).define("aapl", ["FileAttachment"], function(FileAttachment){return(
 FileAttachment("aapl.csv").csv({typed: true})
 )});

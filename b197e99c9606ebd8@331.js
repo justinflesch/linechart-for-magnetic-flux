@@ -8,7 +8,7 @@ export default function define(runtime, observer) {
   main.variable(observer()).define(["md"], function(md){return(
 md`# Magnetic Flux Data
 
-This [line chart](/@d3/line-chart) shows magnetic flux data with a tooltip.
+This line chart shows magnetic flux data with a tooltip.
 A condensed job voltage:`
 )});
   main.variable(observer("chart1")).define("chart1", ["LineChart","aapl","width"], function(LineChart,aapl,width){return(
@@ -21,9 +21,9 @@ LineChart(aapl, {
   color: "steelblue"
 })
 )});
-  main.variable(observer("focus1")).define("focus1", ["Generators","chart1"], function(Generators,chart1){return(
+  /*main.variable(observer("focus1")).define("focus1", ["Generators","chart1"], function(Generators,chart1){return(
 Generators.input(chart1)
-)});
+)});*/
 /*
   main.variable(observer()).define(["md"], function(md){return(
 md`A random sensor output:`
@@ -43,7 +43,7 @@ LineChart(aapl, {
   main.variable(observer("aapl")).define("aapl", ["FileAttachment"], function(FileAttachment){return(
 FileAttachment("aapl.csv").csv({typed: true})
 )});
-  main.variable(observer()).define(["md"], function(md){return(
+  /*main.variable(observer()).define(["md"], function(md){return(
 md`This chart emits *input* events and exposes a value (the focused data); you can listen for these events (*e.g.*, \`chart.addEventListener("input", …)\`) to support interaction such as coordinated views. On Observable, you can even define a reactive value by declaring the chart as a [view](/@observablehq/introduction-to-views) or using Generators.input as below; any cell that references *focus* will now run automatically when the user hovers the chart.`
 )});
   main.variable(observer("focus2")).define("focus2", ["Generators","chart2"], function(Generators,chart2){return(
@@ -51,7 +51,7 @@ Generators.input(chart2)
 )});
   main.variable(observer()).define(["howto"], function(howto){return(
 howto("LineChart")
-)});
+)});*/
   main.variable(observer("LineChart")).define("LineChart", ["d3"], function(d3){return(
 function LineChart(data, {
   x = ([x]) => x, // given d in data, returns the (temporal) x-value

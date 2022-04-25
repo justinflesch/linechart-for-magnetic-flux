@@ -9,7 +9,7 @@ export default function define(runtime, observer) {
 md`# Magnetic Flux Data
 
 This line chart shows magnetic flux data with a tooltip.
-A condensed job voltage:`
+Output from our machine-learning algorithm:`
 )});
   main.variable(observer("chart1")).define("chart1", ["LineChart","aapl","width"], function(LineChart,aapl,width){return(
 LineChart(aapl, {

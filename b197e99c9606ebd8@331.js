@@ -101,9 +101,9 @@ function LineChart(data, {
 
   // Compute titles.
   if (title === undefined) {
-    const formatDate = xScale.tickFormat(null, "%b %-d, %Y");
+    //const formatDate = xScale.tickFormat(null, "%b %-d, %Y");
     const formatValue = yScale.tickFormat(100, yFormat);
-    title = i => `${formatDate(X[i])}\n${formatValue(Y[i])}`;
+    title = i => `${formatValue(Y[i])}`;
   } else {
     const O = d3.map(data, d => d);
     const T = title;

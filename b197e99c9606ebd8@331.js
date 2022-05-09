@@ -2,56 +2,49 @@
 import define1 from "./7a9e12f9fb3d8e06@459.js";
 
 export default function define(runtime, observer) {
+  console.log("Hello!")
   const main = runtime.module();
   const fileAttachments = new Map([["aapl.csv",new URL("./anomalydetection_fixed.csv",import.meta.url)]]);
-  main.builtin("FileAttachment", runtime.fileAttachments(name => fileAttachments.get(name)));
-  main.variable(observer()).define(["md"], function(md){return(
-md`# Magnetic Flux Data
+  const fileAttachments2 = new Map([["second.csv",new URL("./VAR3 Full Melt 12-15-2020 1 Hz.csv",import.meta.url)]]);
 
-This line chart shows magnetic flux data with a tooltip.
-Output from our machine-learning algorithm:`
+
+
+  main.builtin("FileAttachment", runtime.fileAttachments(name => fileAttachments.get(name)));
+  main.builtin("FileAttachment2", runtime.fileAttachments(name => fileAttachments2.get(name)));
+
+
+  main.variable(observer()).define(["md"], function(md){return(md)});
+
+
+  main.variable(observer("chart2")).define("chart2", ["LineChart","second","width"], function(LineChart,second,width){return(
+    LineChart(second, {
+      x: d => d.index,
+      y: d => d.Measurements_P10C08t,
+      xLabel: "Time (ms)",
+      width,
+      height: 500,
+      color: "steelblue"
+    })
 )});
-  main.variable(observer("chart1")).define("chart1", ["LineChart","aapl","width"], function(LineChart,aapl,width){return(
-LineChart(aapl, {
-  x: d => d.time,
-  y: d => d.anomaly_score,
-  xLabel: "Time (ms)",
-  width,
-  height: 500,
-  color: "steelblue"
-})
+
+  main.variable(observer("second")).define("second", ["FileAttachment2"], function(FileAttachment2){return(
+FileAttachment2("second.csv").csv({typed: true})
 )});
-  /*main.variable(observer("focus1")).define("focus1", ["Generators","chart1"], function(Generators,chart1){return(
-Generators.input(chart1)
-)});*/
-/*
-  main.variable(observer()).define(["md"], function(md){return(
-md`A random sensor output:`
-)});
-  main.variable(observer("chart2")).define("chart2", ["LineChart","aapl","width"], function(LineChart,aapl,width){return(
-LineChart(aapl, {
-  x: d => d.anomaly_score,
-  y: d => d.time,
-  xLabel: "Time (ms)",
-  width,
-  height: 500,
-  yDomain: [-0.15, 0.32],
-  color: "steelblue"
-})
-)});
-*/
-  main.variable(observer("aapl")).define("aapl", ["FileAttachment"], function(FileAttachment){return(
-FileAttachment("aapl.csv").csv({typed: true})
-)});
-  /*main.variable(observer()).define(["md"], function(md){return(
-md`This chart emits *input* events and exposes a value (the focused data); you can listen for these events (*e.g.*, \`chart.addEventListener("input", …)\`) to support interaction such as coordinated views. On Observable, you can even define a reactive value by declaring the chart as a [view](/@observablehq/introduction-to-views) or using Generators.input as below; any cell that references *focus* will now run automatically when the user hovers the chart.`
-)});
-  main.variable(observer("focus2")).define("focus2", ["Generators","chart2"], function(Generators,chart2){return(
-Generators.input(chart2)
-)});
-  main.variable(observer()).define(["howto"], function(howto){return(
-howto("LineChart")
-)});*/
+
+main.variable(observer("chart1")).define("chart1", ["LineChart","aapl","width"], function(LineChart,aapl,width){return(
+    LineChart(aapl, {
+      x: d => d.time,
+      y: d => d.anomaly_score,
+      xLabel: "Time (ms)",
+      width,
+      height: 500,
+      color: "steelblue"
+    })
+    )});
+    
+      main.variable(observer("aapl")).define("aapl", ["FileAttachment"], function(FileAttachment){return(
+    FileAttachment("aapl.csv").csv({typed: true})
+    )});
 
   main.variable(observer("LineChart")).define("LineChart", ["d3"], function(d3){return(
 function LineChart(data, {

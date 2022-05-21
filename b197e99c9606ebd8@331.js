@@ -5,7 +5,7 @@ export default function define(runtime, observer) {
   console.log("Hello!")
   const main = runtime.module();
   const fileAttachments = new Map([["aapl.csv",new URL("./anomalydetection_fixed.csv",import.meta.url)]]);
-  const fileAttachments2 = new Map([["second.csv",new URL("./VAR3 Full Melt 12-15-2020 1 Hz.csv",import.meta.url)]]);
+  const fileAttachments2 = new Map([["second.csv",new URL("./Combined---EQS-VAR3---09m-09d-20y_1s.csv",import.meta.url)]]);
 
 
 
@@ -19,7 +19,7 @@ export default function define(runtime, observer) {
   main.variable(observer("chart2")).define("chart2", ["LineChart","second","width"], function(LineChart,second,width){return(
     LineChart(second, {
       x: d => d.index,
-      y: d => d.Measurements_P10C08t,
+      y: d => d.Current,
       xLabel: "Time (ms)",
       width,
       height: 500,
